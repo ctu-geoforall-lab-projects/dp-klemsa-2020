@@ -1,0 +1,34 @@
+\chapter{Úvod}
+	Fotogrammetrie je obor zabývající se geometrickými vztahy mezi objekty zachycenými na fotografickém snímku. Tento způsob se často využívá u dokumentace historických objektů, tvorby map z leteckých snímků, při dokumentaci dopravních nehod atd. Fotogrammetrii můžeme rozdělit do více kategorií.
+	
+	\textbf{Jednosnímková fotogrammetrie}
+	
+	Nejjednodušší metoda je tzv. jednosnímková fotogrammetrie. Jak název napovídá, je zpracováván pouze jeden snímek. Metoda je hojně využívána u dokumentace fasád budov. Omezení při tomto postupu je, že ze snímku získáme pouze dvojrozměrnou informaci, proto jakákoliv hloubková členění budou oproti zvolené rovině zkreslená.
+	
+	\textbf{Stereofotogrammetrie}
+	
+	Metoda využívající stereoskopického vjemu, na jehož základě získáme z dvou překrývajících se snímků s rovnoběžnou osou záběru prostorové informace. Tato metoda je hojně využívána v letecké fotogrammetrii.
+
+	\textbf{Průseková fotogrammetrie}
+	
+	Průseková fotogrammetrie využívá více snímků s nerovnoběžnou osou záběru, na kterých jsou vyhledány identické body, ze kterých jsou získané prostorové souřadnice těchto bodů.
+	
+	\textbf{Obrazová korelace}
+	
+	
+	Obrazová korelace, hojně nazývána také jako IBMR (\textit{Image Based Modeling and Rendering}) je metoda využívající obrazovou korelaci pro vyhledávání identických bodů. Funguje v podstatě na principu průsekové fotogrammetrie s tím rozdílem, že je potřeba velké množství snímků a algoritmus SIFT (\textit{Scale Invariant Feature Transformation}), který vyhledává identické body, proto je vhodná pro objekty negeometrického tvaru.
+	
+	Všechny tyto metody využívají obrazová data, u kterých je předpoklad středového promítání. To ovšem u fotoaparátů s běžným objektivem neplatí. Fotografie jsou zatíženy geometrickým zkreslením, které by se projevilo na kvalitě výstupu. Proto je nutné toto zkreslení redukovat.
+
+	Tato bakalářská práce je zaměřena na tvorbu jednoduchého a uživatelsky přívětivého softwaru pro odstranění geometrického zkreslení fotografických snímků na základě znalosti prvků vnitřní orientace včetně průběhu radiální a tangenciální distorze. Průběh distorze může být vyjádřen různými způsoby. Pro tvořený program byl však zvolen model podle Duane C. Browna, který je často využívaným modelem ve fotogrammetrických softwarech.
+	
+	Existuje mnoho programů, které umí nežádoucí zkreslení ze snímků odstranit. Proč tedy vyvíjet nástroj nový? 
+	
+	Jako první bych zmínil grafické editory. Jedná se o nástroje, které většinou umí odstranit zkreslení na základě subjektivního vnímání uživatele. Například tak, že posuvníkem uživatel nastavuje velikost zkreslení, až stěny budovy nejsou prohnuté. Tyto nástroje jsou ovšem vhodné pouze pro fotografie, které nebudou fotogrammetricky zpracovávány. Nepracují totiž s tangenciální distorzí, souřadnicemi hlavního snímkového bodu a nastavení průběhu radiální distorze je často velmi omezené. 
+	
+	Do druhé skupiny bych zařadil programy fotogrammetrické. Často profesionální a velmi obsáhlý software, který je ovšem v mnohých případech finančně nákladný. V některých případech tyto programy mají funkci na poloautomatický výpočet prvků vnitřní orientace, což je značná úspora času.\par
+
+
+\section{Cíle práce}
+	Cílem této práce je tedy vytvořit program, který bude volně šiřitelný, aby kdokoliv měl možnost upravovat, šířit a dále využívat zdrojový kód a bude psán v rozšířeném multiplatformním objektově orientovaném programovacím jazyce, tak aby byla snadná jeho další úprava. Program byl tedy vytvořen v jazyce \textit{C++} na platformě \textit{Qt}.
+

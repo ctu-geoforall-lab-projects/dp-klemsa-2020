@@ -1,0 +1,70 @@
+\chapter{Rešerše používaných algoritmů}
+Tato kapitola se zabývá přehledem používaných algoritmů pro výpočet polygonů ze vstupních linií. Polygonizace, v případě výskytu fuzzy průsečíků, se zpravidla neřeší jedním algoritmem na polygonizaci, ovšem průsečíky linií jsou nejprve doplněny a poté se zahájí vlastní tvorba polygonů z těchto upravených linií. Toto řešení používají i v praxi užívané GIS nástroje, jako například nástroj \textit{"Polygonize"} využívaný v softwaru \textit{QGis}, nebo nástroj \textit{"Feature To Polygon"} ze softwaru \textit{ArcGIS}.
+
+\textbf{TODO: tady by bylo fajn citovat buďto dokumentaci QGis nebo vlastní repozitář... u arcgis je toto tvrzení založeno jen na výstupu aplikace v task history.}
+
+\section{Výpočet průsečíků množiny linií}
+Výpočet všech průsečíků množin linií lze provést snadno, testováním všech úseček se všemi. Tímto postupem ovšem zjevně dosáhneme složitosti $\mathcal{O}(N^2)$. Pro výpočet průsečíků lze ovšem využít i algoritmus s časovou náročnosti $\mathcal{O}(n\log{}n)$, známý také jako Bentley–Ottmannův algoritmus \cite{bentley1979algorithms}.
+
+\subsection{Vzájemná poloha dvou úseček}
+Ve 2D výpočetní geometrii jsou standardně jednotlivé segmenty linie vyjádřeny počátečním a koncovým bodem. Uvažujme tedy že máme dány 2 přímky $p_1 = |S_1 E_1|$ a $p_2 = |S_2 E_2|$, kde $S_1 = [x_{S1},y_{S1}]$, $E_1 = [x_{E1},y_{E1}]$, $S_2 = [x_{S2},y_{S2}]$, $E_2 = [x_{E2},y_{E2}]$ a potřebujeme provést test, zda se dané přímky protínají či nikoliv, můžeme použít takzvaný \textit{Half-Plane} test, tedy test, který určuje zda bod leží v pravé či levé polorovině od přímky. Tento test zopakujeme celkem čtyřikrát a to na počáteční a koncový bod druhé úsečky, abysme zjistili zda se přímky protínají. Test je založen na výpočtu orientace dvou vektorů $\vec{u}$  a $\vec{v}$, kde vektor $\vec{v}$ je směrový vektor úsečky, tedy $\overrightarrow{S_1E_1}$ a vektor $\vec{v}$ je vektor $\overrightarrow{S_1S_2}$.
+
+	
+
+	
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{./pictures/2/half-plane_vector.pdf}
+  \caption{\textit{Half-plane} test}
+  \label{fig:2-half_plane_vector}
+\end{figure}
+
+\begin{figure}[h]
+    \centering % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/2/half-plane_1.pdf}
+  \caption{Test bodu $S_2$ k přímce $|S_1E_1|$}
+  \label{fig:2-half_plane_1}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/2/half-plane_2.pdf}
+  \caption{Test bodu $E_2$ k přímce $|S_1E_1|$}
+  \label{fig:2-half_plane_2}
+\end{subfigure}\hfil % <-- added
+
+\medskip
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/2/half-plane_3.pdf}
+  \caption{Test bodu $S_1$ k přímce $|S_2E_2|$}
+  \label{fig:2-half_plane_3}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/2/half-plane_4.pdf}
+  \caption{Test bodu $E_1$ k přímce $|S_2E_2|$}
+  \label{fig:2-half_plane_4}
+\end{subfigure}\hfil % <-- added
+\caption{Grafické znázornění \textit{Half-plane} testů pro zjištění existence průsečíku}
+\label{fig:2-half_plane}
+\end{figure}
+
+\subsection{Bentley–Ottmannův algoritmus}
+Tento algoritmus je založen na technice zvané \textit{sweep line}, překládané jako \textit{zametací přímka}, pro kterou je předpokladem mít setříděná vstupní data, podle jedné ze souřadnic. Algoritmus zde nebuda více popisován jelikož je velmi dobře vysvětlen v těchto publikacích \cite{bentley1979algorithms} \cite{bayer2008algoritmy}.
+
+\section{Polygonizace}
+Jak již bylo řečeno, polygonizace se provádí nad daty s doplněnými průsečíky linií. Doplnění průsečíku jsme schopni vyřešit v čase $\mathcal{O}(n\log{}n)$. Nyní tedy nastává otázka jak řešit vlastní polygonizaci.
+
+
+\section{GIS software}
+Provedení polygonizace zvládá většina současně používaného GIS softwaru. Pokusíme se tedy rozebrat postupy jednotlivých nástrojů na polygonizaci.
+
+\subsection{ArcGIS}
+ArcGIS je vyvíjený společností Esri, v současné době se jedná o nejpokročilejší nástroj v oblasti GIS. Jedná se o proprietární software, u kterého 
+
+
+\subsection{QGis}
+QGis je nejspíše jeden z nejznámějších volných nástrojů pro práci v GIS. Je šířen pod copyleftovou  licencí \textit{GNU General Public License}, tudíž máme volný přístup ke zdrojovému kódu aplikace dostupných v online repozitářích. To nám umožňuje nahlížet do výpočetních algoritmů, které jsou v případě QGis psány v programovacím jazyce \textit{C++} a \textit{Python}, narozdíl od komerčních nástrojů, které si implementaci často chrání
+
+\subsection{Grass GIS}
+
+\subsection{PostGis}
