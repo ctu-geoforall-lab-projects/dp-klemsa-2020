@@ -1,4 +1,5 @@
 \chapter{Rešerše používaných algoritmů}
+\label{chap:reserzepouzivanychalgoritmu}
 	Tato kapitola se zabývá přehledem využívaných algoritmů pro tvorbu polygonů z množiny linií. Polygonizace, tak jak jí můžeme pozorovat v různých GIS softwarech, se zpravidla neřeší jedním algoritmem, ale používají se různé algoritmy pro jednotlivé kroky polygonizace. Popíšeme zde tedy do jakých kroků lze polygonizaci rozdělit a jak jednotlivé kroky optimálně řešit. Budeme se zabývat i řešením v jednotlivých GIS softwarech.
 
 	Polygonizaci lze nejjednodušeji rozdělit na 2 základní kroky. Jako vstupní data budeme uvažovat množinu linií, tyto linie ovšem nemusí obsahovat, v reálném použití převážně neobsahují, lomové body ve společných průsečících. V terminologii GIS se tyto průsečíky označují jako \textit{fuzzy}, volně přeloženo jako \textit{neostré}. Abychom mohli zahájit další krok polygonizace, je nutné tyto průsečíky doplnit. V první části se tedy budeme zabývat, jak optimálně doplnit průsečíky množin linií.
