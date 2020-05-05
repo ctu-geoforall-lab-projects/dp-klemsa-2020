@@ -1,4 +1,6 @@
 \chapter{Navrhování algoritmů}
+\label{chap:navrhovanialgoritmu}
+
 
 \section{Časová a prostorová složitost algoritmů}
 	Abychom mohli porovnávat algoritmy, řešící stejný problém, mezi sebou a rozhodnout se kdy který algoritmus použít, slouží nám k tomuto účelu základní dvě míry pro porovnání.
@@ -19,7 +21,6 @@
   \label{fig:3-time_complexity}
 \end{figure}
 	
-	
 	 Pro vyjádření časové složitosti můžeme využít různé varianty.
 \begin{itemize}
 	\item Horní odhad složitosti - $\mathcal{O} (f(N))$
@@ -30,10 +31,7 @@
 	
 \subsection{Stanovení časové složitosti}
 	[Doplnit] Časovou složitost algoritmu můžeme stanovit matematickou analýzou nebo empiricky. U jednoduchých algoritmů většinou není problém stanovit složitost
-	
-	
-	
-	
+
 \section{Metody návrhů algoritmů ve výpočetní geometrii}
 	Abychom byli schopni porozumět různým algoritmům, nebo navrhnout nový algoritmus pro různé operace ve výpočetní geometrii, je dobré seznámit se s často využívanými metodami, používané v algoritmech výpočetní geometrie. Metody návrhů alogritmů neřeší konkrétní problém, ale pouze obecný postup jak se při hledání řešení chovat.
 
@@ -68,17 +66,33 @@
 	
 
 \subsection{Zametací přímka}
-	Další metoda využívaná výhradně ve výpočetní geometrii je metoda takzvané \textit{zametací přímky}, neboli \textit{sweep line}. Myšlenkou této techniky je procházení setříděných dat. Ve výpočetní geometrii se nejčastěji jedná o průchod bodů seřazených podle jedné ze souřadnic. Pokud takto setříděnou vstupní množinou nedisponujeme, je nutno nejprve data setřídit jedním ze známích třídících algoritmů. Pak lze průchod body vizualizovat, podle implementace, jako svislou přímku pohybující se z leva do prava po množině bodů.
+	Další metoda využívaná výhradně ve výpočetní geometrii je metoda takzvané \textit{zametací přímky}, neboli \textit{sweep line}. Myšlenkou této techniky je procházení setříděných dat. Ve výpočetní geometrii se nejčastěji jedná o průchod bodů seřazených podle jedné ze souřadnic. Pokud takto setříděnou vstupní množinou nedisponujeme, je nutno nejprve data setřídit jedním ze známích třídících algoritmů. Pak lze průchod body vizualizovat, podle implementace, například jako svislou přímku pohybující se z leva do prava po množině bodů.
 	Tuto metudu využívá například \textit{Bentley-Ottmannův} algoritmus pro nalezení průsečíků množin linií, který je podrobněji popsán v kapitole \ref{chap:reserzepouzivanychalgoritmu}, proto se jím zde nebudeme zabývat.
 
-
-
-
-
-
-
 \subsection{Inkrementální algoritmy}
+	Tyto algoritmy řeší problém tím, že ze vstupní množiny přidávájí, nebo aktualizují prvky ve výstupní množině. Tedy po každém kroku je řešení aktualizováno dokud není dosaženo konečného výsledku. Výhodou této metody je že často lze použít pro online algoritmy, tedy do vstupní množiny mohou být přidávány prvky v průběhu výpočtu.
+	Pro ukázku zde byl vybrán algoritmus pro inkrementální výpočet konvexní obálky. Algoritmus vybere bod ze vstupní množiny a určí polohu vůči aktuálním liniím konvexní obálky. Pokud bod vůči nějakým hranám leží v pravé polorovině, tyto hrany jsou označeny čárkovaně, algoritmus odebere tyto hrany z konvexní obálky a mezi volné konce přidá aktuálně zkoumaný bod. Pokud bod leží vůči všem hranám v levé polorovině, řešení se neaktualizuje a pokračuje se dál. Na tomto příkladu je vidět i možnost využívat algoritmus online, tedy kdykoliv do výpočtu zahrnout další body.
 
+\begin{figure}[h]
+    \centering % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/3/incremental_hull_1.pdf}
+  \label{fig:3-douglas-peucker_1}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/3/incremental_hull_2.pdf}
+  \label{fig:3-douglas-peucker_2}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/3/incremental_hull_3.pdf}
+  \label{fig:3-douglas-peucker_3}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{./pictures/3/incremental_hull_4.pdf}
+  \label{fig:3-douglas-peucker_4}
+\end{subfigure}\hfil % <-- added
+\caption{Znázornění postupu inkrementálního algoritmu pro konvexní obálku}
+\end{figure}
 
 \subsection{Heuristické algoritmy}
 
