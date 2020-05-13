@@ -1,14 +1,37 @@
 \chapter{Vektorové datové modely}
 \label{chap:vektorovedatovemodely}
-	Každý z nás se setkal s pojmem vektorová grafika. Klasický vektor, tak jak ho z matematiky známe, je charakterizován velikostí a směrem. Ovšem může být také dán dvěma body, čehož v grafických informačních systémech využíváme. Základem každé datové struktury pro GIS je tedy reprezentace bodu. Každý takový bod má dané souřadnice $X$, $Y$, případně $Z$. Třída bodu je pak základní stavební kámen pro další datové typy, jako jsou například linie a polygony. Potřebné atributy k bodům, nebo jiným datovým typům, jsou poté přiřazeny přes identifikátor geometrie. Toto je tedy základní princip datové struktury GIS.
+	K uchování prostorových dat v GIS jsou používané dva základní typy, a to vektorová a rastrová data. Rastrová data se hojně využívají pro popis spojitého jevu, například nadmořské výšky, nebo pro fotoplány. Každý pixel obsahuje jednu číselnou hodnotu. Jeden rastrový obraz může obsahovat i více vrstev, pak může být fotoplán vyjádřen hodnotami RGB, zatímco nadmořská výška bude pravděpodobně vyjádřena jednou číselnou hodnotou.
+	
+	Druhým typem je vektorovému vyjádření. Klasický vektor, tak jak ho známe z matematiky je charakterizován velikostí a směrem. Lze ho ovšem vyjádřit i dvěma body, čehož využíváme ve vektorové grafice. Odtud je tedy zřejmé proč vektorová grafika nese toto označení. V GIS se využívají tři základní geometrické útvary. Těmi jsou body, linie a polygony. Tyto základní typy pak slouží pro popis objektů v krajině.
+	
+	Bod je nejjednodušší geometrický prvek. Nese v sobě informaci o poloze, vyjádřenou souřadnicemi $X$, $Y$, případně $Z$.
+	
+	Linie je vyjádřena posloupností souřadnic. Linie začíná a končí v uzlech, její mezilehlé body se nazývají vertexy. Podle topologických pravidel by linie v jedné vrstvě měli být napojeny pouze přes uzly. Tento topologický koncept se nazývá \textit{konektivita}.
+	
+	Pokud je počáteční uzel linie totožný s koncovým uzlem, mluvíme o polygonu. To vychází z druhého konceptu topologie, kterému se nazývá \textit{definice plochy}.
+	
+	Každý vektorový objekt může kromě geometrické informace obsahovat také různé atributy. Tyto atributy jsou propojeny s objektem pomocí jeho identifikátoru. \cite{kolar2003geograficke} \cite{tucek1997geograficke} \cite{vesely2007thesis}
 	
 \section{Špagetový model}
-	Špagetový model je nejjednodušší model který se v GIS používá. Každý prvek, ať se jedná o bod, linii, či polygon, je uložen jako posloupnost souřadnic, v případě bodu má tedy tato posloupnost pouze jeden prvek. Takto velice jednosuše definujeme všechny objekty v ploše, které ovšem nenesou informaci o vztazích mezi sebou. Tyto chybějící vztahy zpomalují většinu prostorových analýz nad daty, kdy při každé operaci musí být potřebné vztahy dopočítány a po dokončení operace jsou vztahy opět ztraceny. Další nevýhoda je například u reprezentace polygonů, kdy společná linie dvou polygonů je v tomto modelu uložena dvakrát, pro každý polygon zvlášť. V tomto modelu se mohou snadno vyskytovat topologicky nekorektní data, kdy se nám například kříží linie a nemají v tomto křížení společný bod, takzvané \textit{fuzzy} průsečíky a mnoho dalších topologických chyb. \cite{QGIS_software} \cite{tucek1997geograficke} \cite{kolar2003geograficke}
+	Tento model je velice jednoduchý, každý objekt je uložen jako jeden záznam v datové tabulce. Tato tabulka obsahuje identifikátor prvku a jeho souřadnice. Tento model neukládá žádné prostorové vztahy. Je tedy velice jednoduché přidání či odebrání objektu. Pouze smažeme či přidáme řádek do příslušné tabulky. Tento model je vhodný pro vizualizaci či přenos dat. Nevýhodou je zde že společné hranice polygonů jsou v tomto modelu uloženy 2x, pro každý polygon zvlášť. Problém nastává také při některých geometrických analýzách. Jelikož nám nejsou známé žádné prostorové vztahy, musíme například pro zjištění sousedních polygonů projít všechny záznamy v tabulce. Tyto chybějící prostorové vztahy musí být často dopočteny a po provedení analýzy je opět ztrácíme. Pokud tedy nad většími daty chceme provádět rozsáhlejší výpočty, tento model není příliš vhodný pro jejich uchovávání. \cite{QGIS_software} \cite{tucek1997geograficke} \cite{kolar2003geograficke} \cite{vesely2007thesis}
 	
-\section{Topologický model}
+\section{Topologické modely}
+	Jak z názvu vyplývá, topologické modely uchovávají informace o topologii. Tedy o vztazích objektů mezi sebou. Data uložená v topologickém modelu jsou velkou výhodou pro výpočetní analýzy, které díky struktuře dat mají mnohé vztahy předpočítané.
+
+\subsubsection{Topologie bodů}
+	Topologie bodů je velice jednoduchá a v podstatě koresponduje s uchováním dat ve špagetovém modelu. Jelikož jsou body jeden na druhém nezávislé, nejsou zde uloženy žádné zvláštní topologické vztahy. Jedině co je o bodech uchováváno je jejich identifikátor, přes který lze bod propojit se souřadnicemi.
 	
+\subsubsection{Topologie linií}
+	Pro linie platí pravidlo, že každé dvě linie mohou sdílet pouze uzly, tedy koncové body. Každá část linie je uložena s odkazem na uzly linie. Struktura dále ukládá informace o pravém a levém polygonu vzhledem ke směru linie, pokud takovýto polygon existuje.
 
+\subsubsection{Topologie polygonů}
+	Pro každý polygon je definováno jakými liniemi je ohraničen. 
+	
+Ze struktury dat je vidět, že velice snadno zjistíme například sousední polygony k námi vybranému polygonu. Učinit tak můžeme bez jakéhokoliv přístupu k souřadnicím a geometrickým výpočtům, narozdíl od špagetového modelu. To může ušetřit mnoho času při prostorových analýzách dat. \cite{QGIS_software} \cite{tucek1997geograficke} \cite{kolar2003geograficke} \cite{vesely2007thesis}
 
-\section{Hierarchický model}
-
-
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{./pictures/3/topo_model.png}
+  \caption{Ukázka topologického modelu \textit{převzato z \cite{kolar2003geograficke}})}
+  \label{fig:3-time_complexity}
+\end{figure}
