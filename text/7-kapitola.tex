@@ -3,13 +3,39 @@
 	Pro implementaci polygonizačního algoritmu byla vybrána open-source knihovna pro programovací jazyk Java \textit{GeoTools}. V současné době je \textit{GeoTools} součástí \textit{OSGeo}, což je nezisková organizace, podporující open-source geoprostorové technologie. Mimo \textit{GeoTools} organizace zastupuje řadu dalších projektů, mezi které patří v desktopových aplikacích textit{QGIS}, \textit{GRASS GIS}, mezi mapové servery \textit{MapServer}, \textit{GeoServer} a mezi knihovnami jsou nejvýznamějšími zástupci \textit{GEOS}, \textit{GDAL}, \textit{PROJ}, nebo \textit{JTS}. Právě zmíněná knihovna \textit{JTS} tvoří základní kámen pro \textit{GeoTools}, jelikož jsou v ní definovány základní geometrické typy a operace pro práci s prostorovými daty. Možná více známá knihovna než \textit{JTS} je knihovna \textit{GEOS}, což je přepis knihovny z Javy do C++. \cite{OSGeo} \cite{GeoTools}
 	
 \section{GeoTools plug-in systém}
-	Jelikož má GeoTools otevřené zdrojové kódy 
+	Většina \textit{open-source} projektů je založena na příspěvcích od komunity vývojářu. Proto jsou projekty vytvořeny tak aby byli snadno rozšiřitelné o nějakou funkcionalitu. Výjimkou není ani projekt \textit{GeoTools}. Snaha vývojářů je tedy taková, co nejvíce usnadnit tvorbu zásuvných modulů. Na webových stránkách \textit{GeoTools}\cite{GeoTools} najdeme velmi podrobný tutoriál pro implementaci uživatelských funkcí a jiných dalších komponent. K tomuto účelu je využíváno technologie Java Service Provider Interface.
+	
+\subsection{Java Service Provider Interface}
+	Java SPI přišla s nástupem Javy 6, která byla představena v roce 2006. Tato technologie umožňuje vyhledat a načíst implementaci daného rozhraní a tak dodat funkčnost. Této metody je využíváno například u přístupu k databázím pomocí JDBC, kdy třetí strana má možnost implementovat ovladače pro jakoukoli databázi a tak rozšířit funkčnost JDBC. Základními prvky SPI jsou:
+	
+\begin{itemize}
+	\item Service
+	\item Service provider interface
+	\item Service provider
+\end{itemize}	
+	
+\subsubsection{Service}
+	Též hojně označované jako \textit{služba}. Jedná se o API se kterým programátor pracuje, aniž by věděl že 
+
+
+\subsubsection{Service provider interface}
+	Také nazývané \textit{rozhraní poskytovatele služeb}. Je rozhraní nebo abstraktní třída, která slouží jako koncový bod služby. Toto rozhraní nebo abstraktní třída je dále implementována poskytovatelem služeb.
+	
+	
+\subsubsection{Service provider}
+	V Češtině se někdy používá označení \textit{poskytovatel služeb} nebo zkráceně jen \textit{poskytovatel}. Jedná se o implementaci \textit{rozhraní poskytovatele služeb}. V analogii na \textit{JDBC} se může jednat o implementaci do konkrétní databáze.
+
+
+
+
+\subsubsection{ServiceLoader class}
+
 
 
 
 \subsection{Návrhový vzor Factory}
 
-\subsection{Java Service Provider Interface}
+
 
 \subsection{První implementace}
 
