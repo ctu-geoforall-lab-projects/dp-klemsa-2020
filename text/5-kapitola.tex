@@ -30,7 +30,7 @@
 Výpočet všech průsečíků množin linií lze provést snadno, testováním všech úseček se všemi. Tímto postupem ovšem zjevně dosáhneme složitosti $\mathcal{O}(N^2)$. Pro výpočet průsečíků lze ovšem využít i algoritmus s časovou náročnosti $\mathcal{O}(n\log{}n)$, známý také jako Bentley–Ottmannův algoritmus \cite{bentley1979algorithms}.
 
 \subsection{Vzájemná poloha dvou úseček}
-Ve 2D výpočetní geometrii jsou standardně jednotlivé segmenty linie vyjádřeny počátečním a koncovým bodem. Uvažujme tedy že máme dány 2 přímky $p_1 = |S_1 E_1|$ a $p_2 = |S_2 E_2|$, kde $S_1 = [x_{S1},y_{S1}]$, $E_1 = [x_{E1},y_{E1}]$, $S_2 = [x_{S2},y_{S2}]$, $E_2 = [x_{E2},y_{E2}]$ a potřebujeme provést test, zda se dané přímky protínají či nikoliv, můžeme použít takzvaný \textit{Half-Plane} test, tedy test, který určuje zda bod leží v pravé či levé polorovině od přímky. Tento test zopakujeme celkem čtyřikrát a to na počáteční a koncový bod druhé úsečky, abysme zjistili zda se přímky protínají. Test je založen na výpočtu orientace dvou vektorů $\vec{u}$  a $\vec{v}$, kde vektor $\vec{v}$ je směrový vektor úsečky, tedy $\overrightarrow{S_1E_1}$ a vektor $\vec{v}$ je vektor $\overrightarrow{S_1S_2}$.	
+Ve 2D výpočetní geometrii jsou standardně jednotlivé segmenty linie vyjádřeny počátečními a koncovými souřadnicemi. Uvažujme tedy že máme dány 2 přímky $p_1 = |S_1 E_1|$ a $p_2 = |S_2 E_2|$, kde $S_1 = [x_{S1},y_{S1}]$, $E_1 = [x_{E1},y_{E1}]$, $S_2 = [x_{S2},y_{S2}]$, $E_2 = [x_{E2},y_{E2}]$ a potřebujeme provést test, zda se dané přímky protínají či nikoliv, můžeme použít takzvaný \textit{Half-Plane} test, tedy test, který určuje zda bod leží v pravé či levé polorovině od přímky. Tento test zopakujeme celkem čtyřikrát a to na počáteční a koncový bod druhé úsečky, abysme zjistili zda se přímky protínají. Test je založen na výpočtu orientace dvou vektorů $\vec{u}$  a $\vec{v}$, kde vektor $\vec{u}$ je směrový vektor úsečky, tedy $\overrightarrow{S_1E_1}$ a vektor $\vec{v}$ je vektor $\overrightarrow{S_1S_2}$. Po aplikaci výpočtu orientace vektorů na každá z koncových bodů jsme schopni jednoduše určit zda se dané přímky protínají. Tento postup nám ovšem nedá souřadnice samotného průsečíku.
 
 \begin{figure}[h]
   \centering
@@ -68,31 +68,31 @@ Ve 2D výpočetní geometrii jsou standardně jednotlivé segmenty linie vyjád�
 \end{figure}
 
 \subsection{Nalezení průsečíku dvou úseček}
-	Pro nalezení průsečíku dvou hran vycházíme z parametrického vyjádření přímek, jelikož obecné rovnice neumožňují pracovat s přímkami rovnoběžnými s osou y. Uvažujme tedy stejné značení bodů jako v předchozím odstavci. Nejprve je tedy nutné vyjádřit rovnici přímky z počátečního a koncového vrcholu. Pro parametrické vyjádření využijeme směrový vektor přímky a libovolný bod na přímce. Ovšem pro zjednodušení výpočtů použijeme pro přímku $p_1$ směrový vektor $\overrightarrow{S_1E_1}$ a jako bod do parametrické rovnice dosadíme $S_1$, obdobně zkonstruujeme i parametrické vyjádření přímky $p_2$. Soustava rovnic pro výpočet průsečíku $p_i$ pak tedy bude vypadat takto:
+	Pro nalezení průsečíku $P$ dvou úseček vycházíme z parametrického vyjádření přímek, jelikož obecné rovnice neumožňují pracovat s přímkami rovnoběžnými s osou y. Uvažujme tedy stejné značení bodů jako v předchozím odstavci. Nejprve je tedy nutné vyjádřit rovnici přímky z počátečního a koncového vrcholu. Pro parametrické vyjádření využijeme směrový vektor přímky a libovolný bod na přímce. Ovšem pro zjednodušení výpočtů použijeme pro přímku $p_1$ směrový vektor $\overrightarrow{S_1E_1}$ a jako bod do parametrické rovnice dosadíme $S_1$, obdobně zkonstruujeme i parametrické vyjádření přímky $p_2$. Soustava rovnic pro výpočet průsečíku $p_i$ pak tedy bude vypadat takto:
 	
 \begin{align*} 
 P = S_1 + s \cdot \overrightarrow{S_1E_1}, \\
 P = S_2 + t \cdot \overrightarrow{S_2E_2}. \\
 \end{align*}
 
-Rozepsáno na souřadnice:
+Rozepsáno podle souřadnic:
 
 \begin{align*} 
-x_P = x_{S1} + s(x_{S2} - x_{S1}), \\
-y_P = y_{S1} + s(y_{S2} - y_{S1}), \\
-x_P = x_{S2} + t(x_{S2} - x_{S1}), \\
-y_P = y_{S2} + t(y_{S2} - y_{S1}).
+x_P = x_{S1} + s(x_{E1} - x_{S1}), \\
+y_P = y_{S1} + s(y_{E1} - y_{S1}), \\
+x_P = x_{S2} + t(x_{E2} - x_{S2}), \\
+y_P = y_{S2} + t(y_{E2} - y_{S2}).
 \end{align*}
 
 Pro získání průsečíku musíme nejprve ze soustavy rovnic vyjádřit parametry $s$ a $t$. To provedeme následujícím způsobem:
 
 \begin{align*} 
 s = \frac{y_{S1}(x_{S2} - x_{E2}) + y_{S2}(x_{E2} - x_{S1}) + y_{E2}(x_{S1} - x_{S2})}{(x_{E1} - x_{S1}) (y_{S2} - y_{E2})   -   (y_{E1} - y_{S1}) (x_{S2} - x_{E2})}, \\
-y_P = y_{S1} + s(y_{S2} - y_{S1}).
+t = \frac{y_{S1}(x_{S2} - x_{E1}) + y_{E1}(x_{S1} - x_{S2}) + y_{S2}(x_{E1} - x_{S1})}{(x_{E1} - x_{S1}) (y_{S2} - y_{E2})   -   (y_{E1} - y_{S1}) (x_{S2} - x_{E2})}.
 \end{align*}
 
 
-O vzájemné poloze přímek pak můžeme rozhodnout na základě parametrů $s$ a $t$
+Z charakteru parametrického vyjádření přímek poté můžeme rozhodnout o vzájemné poloze úseček. Pokud parametry $s \in <0,1>, t \in <0,1>$ pak se úsečky protínají, v opačném případě se úsečky neprotínají. Je potřeba ošetřit případy kdy úsečky leží na jedné přímce.
 
 
 \subsection{Bentley–Ottmannův algoritmus}
