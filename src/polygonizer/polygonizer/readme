@@ -1,0 +1,3 @@
+-------------------- 16. 5. --------------------
+- Vytvoření shapefilu pro polygonizaci, byl smazán soubor *.prj (bez souřadnicového systému).
+- Načítání shapefilu a zápis do shapefilu v Main.
