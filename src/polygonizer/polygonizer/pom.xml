@@ -57,6 +57,13 @@
     <packaging>jar</packaging>
 
     <dependencies>
+<!--
+	<dependency>
+		<groupId>org.geotools</groupId>
+		<artifactId>gt-process</artifactId>
+		<version>${geotools.version}</version>
+	</dependency>
+-->
 
     <!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
     <dependency>

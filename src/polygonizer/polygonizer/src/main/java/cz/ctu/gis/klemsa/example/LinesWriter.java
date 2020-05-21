@@ -2,14 +2,14 @@ package cz.ctu.gis.klemsa.example;
 
 import java.io.IOException;
 
-public class ShapeFileWriter {
+public class LinesWriter {
 	
 	/**
 	 * 
 	 * @param outputResource
 	 * @throws IOException
 	 */
-	public ShapeFileWriter(String outputResource) throws IOException {
+	public LinesWriter(String outputResource) throws IOException {
 		
 	}
 }
