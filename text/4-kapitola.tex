@@ -8,17 +8,17 @@
 	\item časová složitost
 	\item prostorová složitost
 \end{itemize}
-	Časová složitost vyjadřuje, jak dlouho bude výpočet podle daného algoritmu trvat, obdobně prostorová složitost nám vyjadřuje, kolik prostoru, tedy paměti, danému algoritmu budeme muset poskytnout pro výpočet. Je očividné, že vyjadřovat časovou složitost v sekundách a prostorovou v bytech by vzhledem k různému hardwaru či různé implementaci nebylo příliš vhodné. Pro popis složitosti algoritmu tedy používáme \textit{Asymptotickou složitost}.
+	Časová složitost vyjadřuje, jak dlouho bude výpočet podle daného algoritmu trvat, obdobně prostorová složitost nám vyjadřuje, kolik prostoru, tedy paměti, danému algoritmu budeme muset poskytnout pro výpočet. Je očividné, že vyjadřovat časovou složitost v sekundách a prostorovou v bytech by vzhledem k různému hardwaru či různé implementaci nebylo příliš vhodné. Pro popis složitosti algoritmu tedy používáme \textit{asymptotickou složitost}.
 	
 \subsection{Asymptotická složitost}
 	Asymptotická složitost se vyjadřuje jako matematická funkce, popisující závislost využití paměťového prostoru nebo výpočetního výkonu na velikosti vstupních dat $N$. Důležité je, že tato funkce je neklesající a vyjadřujeme ji pouze jako třídu složitosti, tedy typ funkce, a ne jako přesné vyjádření. Pro příklad funkce $f(x)=1000N^2$ nebo $g(x)=N^2 + 1000N$ jsou třídy složitosti $\mathcal{O} (N^2)$. Tedy zanedbáváme multiplikativní konstantu, aditivní konstantu a nižší řády funkce, protože nás zajímá, jak se bude měnit časová složitost vzhledem ke zvětšujícím se vstupním datům.
 	
-	Tím, že zanedbáváme multiplikativní a aditivní konstantu a nižší řády funkce, může se vyskytnout případ, kdy algoritmus s vyšším řádem asymptotické složitosti proběhne rychleji než algoritmus s nižším řádem. Máme ovšem jistotu, že existuje vstup o velikosti $N_0$, kde toto přestane platit. Při praktickém použití tato situace může nastat v případě, kdy asymptoticky rychlejší algoritmus má složitější implementaci a prostředky vynaložené na režii převyšují výhody algoritmu. Takováto situace je vyjádřena na obrázku \ref{fig:4-time_complexity}, kde vidíme, že díky zanedbaným multiplikativním a aditivním konstantám může být reálný čas výpočtu asymptoticky rych\-lej\-ší\-ho algoritmu menší než algoritmu s vyšší asymptotickou časovou složitostí. Je zde ovšem vidět, že při velikosti vstupu $N_0$ se situace obrátí a dále se chovají tak, jak bychom očekávali.\cite{hartmanis1965on}
+	Tím, že zanedbáváme multiplikativní a aditivní konstantu a nižší řády funkce, může se vyskytnout případ, kdy algoritmus s vyšším řádem asymptotické složitosti proběhne rychleji než algoritmus s nižším řádem. Máme ovšem jistotu, že existuje vstup o velikosti $N_0$, kde toto přestane platit. Při praktickém použití tato situace může nastat v případě, kdy asymptoticky rychlejší algoritmus má složitější implementaci a prostředky vynaložené na režii převyšují výhody algoritmu. Takováto situace je vyjádřena na obrázku \ref{fig:4-time_complexity}, kde vidíme, že díky zanedbaným multiplikativním a aditivním konstantám může být reálný čas výpočtu asymptoticky rych\-lej\-ší\-ho algoritmu menší než algoritmu s vyšší asymptotickou časovou složitostí. Je zde ovšem vidět, že při velikosti vstupu $N_0$ se situace obrátí a dále se chovají tak, jak bychom očekávali~\cite{hartmanis1965on}.
 	
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{./pictures/4/time_complexity.pdf}
-  \caption{Graf znázorňující časový průběh algoritmu v závislosti na velikosti vstupu $N$}
+  \caption{Graf znázorňující časový průběh algoritmu v závislosti na velikosti vstupu $N$.}
   \label{fig:4-time_complexity}
 \end{figure}
 	
@@ -28,7 +28,7 @@
 	\item Průměrná složitost - $\Theta (f(N))$
 	\item Dolní odhad složitosti - $\Omega (f(N))$
 \end{itemize}	
-	Často vídané vyjádření složitosti je takzvaná \textit{Omikron notace}, která vyjadřuje horní odhad, tedy nejhorší možný případ, jakým se může algoritmus chovat. V tomto případě máme jistotu, že algoritmus bude asymptoticky probíhat stejně rychle nebo rychleji v případě časové složitosti. V některých případech se vyplatí uvádět i průměrnou složitost, tedy složitost, která nastává při náhodném rozložení vstupních dat. Typickou ukázkou, kde je vhodné využít průměrnou časovou složitost je metoda \textit{Quick-Sort}, která patří mezi třídící algoritmy. Horní odhad složitosti je $\mathcal{O}(n^2)$. Při vhodné implementaci se ovšem lze kvadratické složitosti účinně bránit a obecně se algoritmus chová s průměrnou časovou složitostí $\Theta (n \log n)$, což je pro třídící algoritmy nejlepší možné.\cite{wirth1989algoritmy} Poslední variantou je dolní odhad složitosti, který nám naopak vyjadřuje, že algoritmus se bude chovat stejně nebo hůře než je uvedeno. Toto vyjádření využijeme především v oblasti kryptografie.\cite{milkova2010algoritmy} \cite{bayer2008algoritmy}
+	Často vídané vyjádření složitosti je takzvaná \textit{Omikron notace}, která vyjadřuje horní odhad, tedy nejhorší možný případ, jakým se může algoritmus chovat. V tomto případě máme jistotu, že algoritmus bude asymptoticky probíhat stejně rychle nebo rychleji v případě časové složitosti. V některých případech se vyplatí uvádět i průměrnou složitost, tedy složitost, která nastává při náhodném rozložení vstupních dat. Typickou ukázkou, kde je vhodné využít průměrnou časovou složitost je metoda \textit{Quick-Sort}, která patří mezi třídící algoritmy. Horní odhad složitosti je $\mathcal{O}(n^2)$. Při vhodné implementaci se ovšem lze kvadratické složitosti účinně bránit a obecně se algoritmus chová s průměrnou časovou složitostí $\Theta (n \log n)$, což je pro třídící algoritmy nejlepší možné.\cite{wirth1989algoritmy} Poslední variantou je dolní odhad složitosti, který nám naopak vyjadřuje, že algoritmus se bude chovat stejně nebo hůře než je uvedeno. Toto vyjádření využijeme především v oblasti kryptografie \cite{milkova2010algoritmy,bayer2008algoritmy}.
 	
 \subsection{Stanovení časové složitosti}
 	Pro určení časové složitosti je nutné určit počet operací v závislosti na velikosti vstupních dat. Nezajímáme se o přesný počet operací, ale o vztah počtu operací k velikosti vstupní množiny. Pro komplikované algoritmy to může být nesnadný úkol. U geometrických algoritmů se často zajímáme pouze o horní odhad složitosti díky jeho relativně jednoduchému zjištění oproti průměrnému odhadu.
@@ -54,11 +54,11 @@ $n!$			&3,6s		&77000 let	&			&			&			&\\
 \hline
 
 \end{tabular}
-\caption{Příklad závislosti výpočetního času na asymptotické složitosti algoritmu}
+\caption{Příklad závislosti výpočetního času na asymptotické složitosti algoritmu.}
 \label{tab:4-time_complexity}
 \end{table}
 
-\section{Metody návrhů algoritmů ve výpočetní geometrii}
+\section{Metody algoritmizace ve výpočetní geometrii}
 	Abychom byli schopni porozumět různým algoritmům nebo navrhnout nový algoritmus pro různé operace ve výpočetní geometrii, je dobré seznámit se s často používanými metodami, používané v algoritmech výpočetní geometrie. Metody návrhů alogritmů neřeší konkrétní problém, ale pouze obecný postup, jak se při hledání řešení chovat.
 
 \subsection{Metoda hrubé síly}
@@ -178,5 +178,5 @@ $n!$			&3,6s		&77000 let	&			&			&			&\\
   \includegraphics[width=\linewidth]{./pictures/4/incremental_hull_4.pdf}
   \label{fig:3-douglas-peucker_4}
 \end{subfigure}\hfil % <-- added
-\caption{Znázornění postupu inkrementálního algoritmu pro konvexní obálku}
+\caption{Znázornění postupu inkrementálního algoritmu pro konvexní obálku.}
 \end{figure}

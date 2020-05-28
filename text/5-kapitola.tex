@@ -96,7 +96,7 @@ Z charakteru parametrického vyjádření přímek poté můžeme rozhodnout o v
 
 
 \subsection{Bentley–Ottmannův algoritmus}
-Tento algoritmus je založen na technice zvané \textit{sweep line}, překládané jako \textit{zametací přímka}. 
+Tento algoritmus je založen na technice zvané \textit{sweep line} neboli \textit{zametací přímka}. Tato technika je již zmíněna v kapitole \ref{chap:navrhovanialgoritmu}. Hlavní myšlenka pro zrychlení algoritmu oproti metodě hrubé síly je počítat průsečíky pouze sousedních linií, tedy linií které jsou právě protnuty zametací přímkou.
 
 prioritní fronta - seřazené body podle jedné ze souřadnic
 
@@ -114,14 +114,11 @@ prioritní fronta - seřazené body podle jedné ze souřadnic
 
 
 \section{Tvorba polygonů z množiny linií}
-Předpokládejme že máme množinu linií doplněnou o průsečíky, tedy každá dvojice úseček v této množině sdílí nejvýše jeden koncový bod. V předchozí sekci bylo řečeno že průsečíky linií lze doplnit pomocí \textit{Bentley–Ottmannova} algoritmu v čase $\mathcal{O}(n\log{}n)$. Nyní chceme tedy v této množině linií nalézt všechny polygony, tak aby jednotlivé polygony spolu sdílely maximálně hrany a zároveň aby žádný z polygonů nemohl obsahovat jiný polygon.
+Předpokládejme že máme množinu linií doplněnou o průsečíky, tedy každá dvojice úseček v této množině sdílí nejvýše jeden koncový bod. V předchozí sekci bylo řečeno že průsečíky linií lze doplnit pomocí \textit{Bentley–Ottmannova} algoritmu v čase $\mathcal{O}(n\log{}n)$. Nyní chceme tedy v této množině linií nalézt všechny polygony, tak aby jednotlivé polygony spolu sdílely maximálně hrany a zároveň aby žádný z polygonů nemohl obsahovat jiný polygon. Takové linie jsou v podstatě reprezentací grafu. K nalezení polygonů můžeme použít tedy grafových algoritmů. 
 	
-\subsection{Nalezení všech cyklů v grafu}
+\subsection{Dijkstrův algoritmus}
 
 
-
-
-Jak již bylo řečeno, polygonizace se provádí nad daty s doplněnými průsečíky linií. Doplnění průsečíku jsme schopni vyřešit v čase $\mathcal{O}(n\log{}n)$. Nyní tedy nastává otázka jak řešit vlastní polygonizaci.
 
 
 \section{GIS software}
