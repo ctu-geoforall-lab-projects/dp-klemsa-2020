@@ -1,7 +1,7 @@
 \chapter{Projekt pátrač} 
 \label{chap:searchandrescue}
 
-	Projekt PÁTRAČ vznikl ve spolupráci s policií ČR. Dle elektronické publikace~\cite{chaloupkova2017vyuziti} se jedná o \textit{Využití vyspělých technologií a čichových schopností psů pro zvýšení efektivity vyhledávání pohřešovaných osob v terénu}. Projekt lze rozdělit na dvě základní části. \textbf{Technická část}, která má za cíl vytvořit software pro přípravu a řízení pátracích akcí a \textbf{biologickou část}, která se zabývá sběrem biologických dat v terénu během pátrání u psů/psovodů~\cite{Zeman2009thesis}.
+	Projekt PÁTRAČ vznikl ve spolupráci s policií ČR. Dle elektronické publikace~\cite{chaloupkova2017vyuziti} se jedná o \textit{Využití vyspělých technologií a čichových schopností psů pro zvýšení efektivity vyhledávání pohřešovaných osob v terénu}. Projekt lze rozdělit na dvě základní části. \textbf{Technická část}, která má za cíl vytvořit software pro přípravu a řízení pátracích akcí a \textbf{biologickou část}, která se zabývá sběrem biologických dat v terénu během pátrání u psů/psovodů~\cite{Zeman2009thesis}. V této kapitole bylo čerpáno z publikací~\cite{sladkova2019aplikace, Zeman2009thesis, pavlista2009rizeni, zachrana}.
 	
 	Technická část je dále rozdělena do čtyř samostatných modulů.
 \begin{itemize}
@@ -10,50 +10,31 @@
 	\item aplikace pro segmentaci prostoru na základě přirozených bariér,
 	\item aplikace pro generování datového skladu a projektu pro QGIS.
 \end{itemize}	
-My se v této práci budeme zabývat jednou z částí přípravy segmentace prostoru na základě přirozených bariér. 
+My se v této práci budeme zabývat jednou z částí přípravy segmentace prostoru na základě přirozených bariér. Konkrétně se bude jednat o segmentaci na polygony ze vstupních linií. Tyto polygony jsou pak dále zpracovávány do vhodných velikostí a tvarů. Následným zpracováním polygonů se zabývá diplomová práce.
 
 \section{Pátrání po pohřešovaných osobách}
 	Podle charakteru prostředí lze záchranné akce rozdělit na několik základních skupin.
 	
-\subsubsection{Sutinové vyhledávání}
-	Jedná se o vyhledávání osob v sutinách budov. V České republice spadá do kompetence hasičských záchranných sborů
+\begin{itemize}
+	\item Sutinové vyhledávání,
+	\item plošné vyhledávání,
+	\item vyhledávání na vodních plochách,
+	\item vyhledávání v horském terénu a v lavinách.
+\end{itemize}	
 	
-\subsubsection{Plošné vyhledávání}
-	Tento typ pátracích akcí je řízen policií České republiky, především za použití kynologických pátracích týmů. Jedná se o pátrání po jedné či více pohřešovaných osobách na rozsáhlém území. 
-
-\subsubsection{Vyhledávání na vodních plochách}
-	Tuto oblast zabezpečují hasičské záchranné sbory.
-
-\subsubsection{Vyhledávání v horském terénu a v lavinách}
-	Tuto činnost zabezpečuje Horská služba, která je na práci v obtížném terénu vybavena a vycvičena. 
-	
+	Aplikace by měla být využívána především v oblasti plošného vyhledávání. Jedná se o pátrání po pohřešované osobě či osobách na rozsáhlém území, které spadá do kompetence policie České Republiky. Pátrání je prováděno v sektorech, které jsou děleny přirozenými či uměle vytvořenýma bariérama. Vyhledávání v takto vymezených oblastech může být prováděno za pomocí kynologických skupin či pátracích rojnic. 
 	
 \subsection{Základní pojmy}
-	Pro lepší pochopení danné problematiky zde budou uvedeny základní pojmy při pátrání po pohřešovaných osobách.
+	Pro lepší pochopení danné problematiky zde budou vysvětleny základní pojmy použité v předchozím odstavci.
 	
+\subsubsection{Pátrání}
+	Pátrání je činnost, která si klade za cíl nalezení hledaného objektu. Objekt v tomto případě může být osoba pohřešovaná, s neznámou totožností, či usmrcená. Pátrání však lze vést i za účelem nalezení movitých věcí, kterými můžou být odcizené dopravní prostředky, zbraně a podobně.
+
 \subsubsection{Pohřešovaná osoba}
-	Pohřešovaná osoba je osoba, po které bylo vyhlášeno nebo započato pátrání. Tato osoba může být v bezprostředním ohrožení života, proto je nutné osobu v co nejkratším čase vypátrat a provést záchranu. Často se může jednat o osobu která je závislá na cizí péči, dítě, senior, nebo nemocná osoba závislá na zdravotní péči. Život ohrožující můžou být i nepříznivé povětrnostní podmínky, nebo okolní prostředí~\cite{zachrana}.
+	Pohřešovaná osoba je osoba, po které bylo vyhlášeno nebo započato pátrání. Tato osoba může být v bezprostředním ohrožení života, proto je nutné osobu v co nejkratším čase vypátrat a provést záchranu. Často se může jednat o osobu která je závislá na cizí péči, dítě, senior, nebo nemocná osoba závislá na zdravotní péči. Život ohrožující můžou být i nepříznivé povětrnostní podmínky, nebo okolní prostředí.
 	
+\subsubsection{Pátrací sektor}
+	Je-li známa přibližná lokalita možného výskytu pohřešované osoby zpravidla je větší prostor rozdělen na menší, takzvané pátrací sektory. Sektory jsou ohraničeny bariérama či jinými hranicemi a dle členitosti terénu a aktuálních podmínek můžou být volena velikost sektorů. Zároveň by měl mít sektor vhodný tvar pro efektivnější pohyb pátracího týmu.
 	
-
-
-
-
-	
-	
-	Využití vyspělých technologií a čichových
-schopností psů pro zvýšení efektivity
-vyhledávání pohřešovaných osob v terénu
-
-
-
-
-
-
-Search and Rescue, v českém jazyce služba pátrání a záchrany. Poskytování této služby je závazné pro všechny členské státy mezinárodní organizace pro civilní letectví. Jedná se o poskytování pomoci lidem, kteří jsou v nouzi následkem letecké nehody. 
-
-
-
-
-Pátrání a záchrana (SAR) je vyhledávání a poskytování pomoci lidem, kteří jsou v nouzi nebo bezprostředním nebezpečí. Obecné pole pátrání a záchrany zahrnuje mnoho speciálních podpolí, obvykle určených typem terénu, ve kterém je pátrání prováděno.
-
+\subsubsection{Bariéra}
+	Bariérou nazýváme člověkem či přírodně vytvořenou překážkou, kterou lze jen obtížně překonat a tudíž lze předpokládat že hledaná osoba tuto bariéru nepřekonala. Kromě bariér dělí pátrací sektory další linie, které mohou napomoct při postupu pátrání a orientaci pátracích týmů v terénu. Přesná skladba téchto linií nám však není známa jelikož se jedná o citlivá data.

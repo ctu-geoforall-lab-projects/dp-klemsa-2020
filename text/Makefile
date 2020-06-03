@@ -4,7 +4,7 @@ all:
 	pdflatex $(FILE)
 	bibtex $(FILE)
 	pdflatex $(FILE)
-	pdflatex $(FILE)
+	pdflatex $(FILE) 
 
 clean:
 	rm -f *~ *.aux *.log *.out *.bbl *.blg *.loa *.lof \
