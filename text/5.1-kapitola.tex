@@ -5,6 +5,8 @@ Existuje celá řada konvenčních nástrojů, kterými lze řešit
 polygonizaci. Oblast GIS je známá značným množstvím kvalitních
 nástrojů s otevřeným zdrojovým kódem. Můžeme tak nalédnout do
 implementace jednotlivých softwarových řešení. Výhodou je i velká
+% ML: komercni neni presne, asi "proprietarni" (i kdyz to nezni
+% cesky), komerce je spojena i s open source...
 komunita, která vždy ochotně poradí. Mimo jiné jsou zde i komerční
 zástupci, kteří nám možnost nahlédnout do zdrojového kódu zpravidla
 nenabídnou. Zato by nám měli poskytovat uživatelskou podporu, za
@@ -23,6 +25,8 @@ nástroje z těchto softwarů lze pro polygonizaci využít.
 \section{ArcGIS Desktop}
 ArcGIS je vyvíjený společností Esri, v současné době se jedná o jeden
 z nejvyužívanějších nástrojů v oblasti GIS. Jedná se o placený
+% ML: co presne zname "nekomercni", napr. neziskovka?
+% ML: chybi reference...
 software, za který nekomerční uživatel v současné chvíli zaplatí 100
 dolarů ročně. Používat tento nástroj tedy pouze pro polygonizaci by
 bylo nesmyslné, ovšem pokud uživatel již tímto softwarem disponuje, je
@@ -43,6 +47,7 @@ se může nástroj chovat jinak.
   \label{fig:feature_to_polygon}
 \end{figure}
 
+% ML: tento obrazek zapadne zbytecne daleko do textu
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{./pictures/5_1/feature_to_polygon-1.png}
@@ -57,10 +62,12 @@ Desktop. Jedná se o nástroj vyvíjený komunitou pod záštitou OSGeo. Je
 šířen pod copyleftovou licencí \textit{GNU General Public License},
 tudíž máme volný přístup ke zdrojovému kódu aplikace dostupnému v
 online repozitářích. To nám umožňuje nahlížet do výpočetních
-algoritmů, které jsou v případě QGis psány v programovacím jazyce
+algoritmů, které jsou v případě QGIS psány v programovacím jazyce
 \textit{C++} a \textit{Python}, narozdíl od komerčních nástrojů, které
 si implementaci často chrání. Výstup z nástroje byl opět validní. Na
 rozdíl od nástroje z ArcGIS Desktop se ovšem podařilo zpracovat i
+%% ML: hodil by odkaz do dodatku, kde budes mit realne porovnani
+%% (jinak je to pouze tvrzeni bez podlozenych dat)
 větší množství dat.
 
 \subsubsection{Polygonize}
@@ -70,6 +77,7 @@ psaného v jazyce Python. Využívá metod knihovny GEOS. Důležitý rozdíl
 oproti nástroji z ArcGIS Desktop je že na vstupu neakceptuje jiné
 prvky než linie~\cite{QGIS_software}.
 
+% ML: tento obrazek zapadne zbytecne daleko do textu
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{./pictures/5_1/polygonize.png}
