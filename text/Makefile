@@ -1,10 +1,10 @@
 FILE=tomas-klemsa-dp-2020
 
 all:
-	pdflatex $(FILE)
+	pdflatex -shell-escape $(FILE)
 	bibtex $(FILE)
-	pdflatex $(FILE)
-	pdflatex $(FILE) 
+	pdflatex -shell-escape $(FILE)
+	pdflatex -shell-escape $(FILE) 
 
 clean:
 	rm -f *~ *.aux *.log *.out *.bbl *.blg *.loa *.lof \
@@ -13,4 +13,4 @@ clean:
 distclean:
 	make clean
 	rm -f $(FILE).pdf
-	
+
