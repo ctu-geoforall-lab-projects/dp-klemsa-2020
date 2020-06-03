@@ -1,7 +1,7 @@
 \chapter{Projekt pátrač} 
 \label{chap:searchandrescue}
 
-	Projekt PÁTRAČ vznikl ve spolupráci s policií ČR. Dle elektronické publikace~\cite{chaloupkova2017vyuziti} se jedná o \textit{Využití vyspělých technologií a čichových schopností psů pro zvýšení efektivity vyhledávání pohřešovaných osob v terénu}. Projekt lze rozdělit na dvě základní části. \textbf{Technická část}, která má za cíl vytvořit software pro přípravu a řízení pátracích akcí a \textbf{biologickou část}, která se zabývá sběrem biologických dat v terénu během pátrání u psů/psovodů~\cite{Zeman2009thesis}. V této kapitole bylo čerpáno z publikací~\cite{sladkova2019aplikace, Zeman2009thesis, pavlista2009rizeni, zachrana}.
+	Projekt PÁTRAČ vznikl ve spolupráci s Policií ČR. Dle elektronické publikace~\cite{chaloupkova2017vyuziti} se jedná o \textit{Využití vyspělých technologií a čichových schopností psů pro zvýšení efektivity vyhledávání pohřešovaných osob v terénu}. Projekt lze rozdělit na dvě základní části. \textbf{Technická část}, která má za cíl vytvořit software pro přípravu a řízení pátracích akcí, a \textbf{biologickou část}, která se zabývá sběrem biologických dat v terénu během pátrání u psů/psovodů~\cite{Zeman2009thesis}. V této kapitole bylo čerpáno z publikací~\cite{sladkova2019aplikace, Zeman2009thesis, pavlista2009rizeni, zachrana}.
 	
 	Technická část je dále rozdělena do čtyř samostatných modulů.
 \begin{itemize}
@@ -22,19 +22,19 @@ My se v této práci budeme zabývat jednou z částí přípravy segmentace pro
 	\item vyhledávání v horském terénu a v lavinách.
 \end{itemize}	
 	
-	Aplikace by měla být využívána především v oblasti plošného vyhledávání. Jedná se o pátrání po pohřešované osobě či osobách na rozsáhlém území, které spadá do kompetence policie České Republiky. Pátrání je prováděno v sektorech, které jsou děleny přirozenými či uměle vytvořenýma bariérama. Vyhledávání v takto vymezených oblastech může být prováděno za pomocí kynologických skupin či pátracích rojnic. 
+	Aplikace by měla být využívána především v oblasti plošného vyhledávání. Jedná se o pátrání po pohřešované osobě či osobách na rozsáhlém území, které spadá do kompetence Policie České republiky. Pátrání je prováděno v sektorech, které jsou děleny přirozenými či uměle vytvořenými bariérami. Vyhledávání v takto vymezených oblastech může být prováděno za pomoci kynologických skupin či pátracích rojnic. 
 	
 \subsection{Základní pojmy}
-	Pro lepší pochopení danné problematiky zde budou vysvětleny základní pojmy použité v předchozím odstavci.
+	Pro lepší pochopení dané problematiky zde budou vysvětleny základní pojmy použité v předchozím odstavci.
 	
 \subsubsection{Pátrání}
-	Pátrání je činnost, která si klade za cíl nalezení hledaného objektu. Objekt v tomto případě může být osoba pohřešovaná, s neznámou totožností, či usmrcená. Pátrání však lze vést i za účelem nalezení movitých věcí, kterými můžou být odcizené dopravní prostředky, zbraně a podobně.
+	Pátrání je činnost, která si klade za cíl nalezení hledaného objektu. Objektem v tomto případě může být osoba pohřešovaná, s neznámou totožností či usmrcená. Pátrání však lze vést i za účelem nalezení movitých věcí, kterými mohou být odcizené dopravní prostředky, zbraně a podobně.
 
 \subsubsection{Pohřešovaná osoba}
-	Pohřešovaná osoba je osoba, po které bylo vyhlášeno nebo započato pátrání. Tato osoba může být v bezprostředním ohrožení života, proto je nutné osobu v co nejkratším čase vypátrat a provést záchranu. Často se může jednat o osobu která je závislá na cizí péči, dítě, senior, nebo nemocná osoba závislá na zdravotní péči. Život ohrožující můžou být i nepříznivé povětrnostní podmínky, nebo okolní prostředí.
+	Pohřešovaná osoba je osoba, po které bylo vyhlášeno nebo započato pátrání. Tato osoba může být v bezprostředním ohrožení života, proto je nutné osobu v co nej\-krat\-ším čase vypátrat a provést záchranu. Často se může jednat o osobu, která je závislá na cizí péči, dítě, seniora, nebo nemocnou osobu závislou na zdravotní péči. Život ohrožující mohou být i nepříznivé povětrnostní podmínky, nebo okolní prostředí.
 	
 \subsubsection{Pátrací sektor}
-	Je-li známa přibližná lokalita možného výskytu pohřešované osoby zpravidla je větší prostor rozdělen na menší, takzvané pátrací sektory. Sektory jsou ohraničeny bariérama či jinými hranicemi a dle členitosti terénu a aktuálních podmínek můžou být volena velikost sektorů. Zároveň by měl mít sektor vhodný tvar pro efektivnější pohyb pátracího týmu.
+	Je-li známa přibližná lokalita možného výskytu pohřešované osoby, zpravidla je větší prostor rozdělen na menší, takzvané pátrací sektory. Sektory jsou ohraničeny ba\-ri\-é\-ra\-mi či jinými hranicemi a dle členitosti terénu a aktuálních podmínek může být volena velikost sektorů. Zároveň by měl mít sektor vhodný tvar pro efektivnější pohyb pátracího týmu.
 	
 \subsubsection{Bariéra}
-	Bariérou nazýváme člověkem či přírodně vytvořenou překážkou, kterou lze jen obtížně překonat a tudíž lze předpokládat že hledaná osoba tuto bariéru nepřekonala. Kromě bariér dělí pátrací sektory další linie, které mohou napomoct při postupu pátrání a orientaci pátracích týmů v terénu. Přesná skladba téchto linií nám však není známa jelikož se jedná o citlivá data.
+	Bariérou nazýváme člověkem či přírodně vytvořenou překážkou, kterou lze jen obtížně překonat a tudíž lze předpokládat, že hledaná osoba tuto bariéru nepřekonala. Kromě bariér dělí pátrací sektory další linie, které mohou napomoct při postupu pátrání a orientaci pátracích týmů v terénu. Přesná skladba těchto linií nám však není známa, jelikož se jedná o citlivá data.
