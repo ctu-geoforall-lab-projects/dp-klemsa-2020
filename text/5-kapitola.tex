@@ -1,10 +1,10 @@
 \chapter{Rešerše používaných algoritmů}
 \label{chap:reserzepouzivanychalgoritmu}
-	Tato kapitola se zabývá přehledem využívaných algoritmů pro tvorbu polygonů z množiny linií. Polygonizace, tak jak jí můžeme pozorovat v různých GIS softwarech, se zpravidla neřeší jedním algoritmem, ale používají se různé algoritmy pro jednotlivé kroky polygonizace. Popíšeme zde tedy do jakých kroků lze polygonizaci rozdělit a jak jednotlivé kroky optimálně řešit. Budeme se zabývat i řešením v jednotlivých GIS softwarech.
+	Tato kapitola se zabývá přehledem využívaných algoritmů pro tvorbu polygonů z množiny linií. Polygonizace, tak jak jí můžeme pozorovat v různých GIS softwarech, se zpravidla neřeší jedním algoritmem, ale používají se různé algoritmy pro jednotlivé kroky polygonizace. Popíšeme zde tedy do jakých kroků lze polygonizaci rozdělit a jak jednotlivé kroky optimálně řešit.
 
-	Polygonizaci lze nejjednodušeji rozdělit na 2 základní kroky. Jako vstupní data budeme uvažovat množinu linií, tyto linie ovšem nemusí obsahovat, v reálném použití převážně neobsahují, lomové body ve společných průsečících. Tato situace nastává především použiváme-li různé vrstvy pro tvorbu polygonů. V terminologii GIS se tyto průsečíky označují jako \textit{fuzzy}, volně přeloženo jako \textit{neostré}. Abychom mohli zahájit další krok polygonizace, je nutné tyto průsečíky doplnit. V první části se tedy budeme zabývat, jak optimálně doplnit průsečíky množin linií.
+	Polygonizaci lze nejjednodušeji rozdělit na 2 základní kroky. Jako vstupní data budeme uvažovat množinu linií, tyto linie ovšem nemusí obsahovat, v reálném použití často neobsahují, body ve společných průsečících. Tato situace nastává především použiváme-li různé vrstvy pro tvorbu polygonů. V terminologii GIS se tyto průsečíky označují jako \textit{fuzzy}, volně přeloženo jako \textit{neostré}. Abychom mohli zahájit další krok polygonizace, je nutné tyto průsečíky doplnit. V první části se tedy budeme zabývat, jak optimálně doplnit průsečíky množin linií.
 	
-	Předpokládejme že množina linií je zbavená \textit{fuzzy} průsečíků, tedy každá dvojice úseček má společný nanejvýš jeden koncový bod. V takovéto situaci můžeme přistoupit k dalšímu kroku, tedy vlastní tvorbě polygonů z množiny linií. Polygony, které hledáme, musí splňovat podmínku, že žádný námi vytvořený polygon nemůže být rozdělen jakoukoliv linií na více menších polygonů. Pro řešení tvorby polygonů se často využívá grafových algoritmů.
+	Předpokládejme že množina linií je zbavená \textit{fuzzy} průsečíků, tedy každá dvojice úseček má společný nanejvýš jeden koncový bod. V takovéto situaci můžeme přistoupit k dalšímu kroku, tedy vlastní tvorbě polygonů z množiny linií. Polygony, které hledáme, musí splňovat podmínku, že žádný námi vytvořený polygon nemůže být rozdělen jakoukoliv linií na více menších polygonů. Jelikož se v podstatě jedná o určité vyjádření grafu, pro tvorbu polygonů se využívá grafových algoritmů.
 	
 \begin{figure}[h]
     \centering % <-- added
@@ -27,7 +27,7 @@
 \end{figure}
 
 \section{Výpočet průsečíků množiny linií}
-Výpočet všech průsečíků množin linií lze provést snadno, testováním všech úseček se všemi. Tímto postupem ovšem zjevně dosáhneme složitosti $\mathcal{O}(N^2)$ kde $N$ je počet úseček. Pro výpočet průsečíků lze ovšem využít i algoritmus s časovou náročnosti $\mathcal{O}(n\log{}n)$, známý také jako Bentley–Ottmannův algoritmus \cite{bentley1979algorithms}.
+Výpočet všech průsečíků množin linií lze provést snadno, testováním všech úseček se všemi. Tímto postupem ovšem zjevně dosáhneme složitosti $\mathcal{O}(N^2)$ kde $N$ je počet segmentů linie. Pro výpočet průsečíků lze ovšem využít i algoritmus s časovou náročnosti $\mathcal{O}(n\log{}n)$, známý také jako Bentley–Ottmannův algoritmus.
 
 \subsection{Vzájemná poloha dvou úseček}
 Ve 2D výpočetní geometrii jsou standardně jednotlivé segmenty linie vyjádřeny počátečními a koncovými souřadnicemi. Uvažujme tedy že máme dány 2 přímky $p_1 = |S_1 E_1|$ a $p_2 = |S_2 E_2|$, kde $S_1 = [x_{S1},y_{S1}]$, $E_1 = [x_{E1},y_{E1}]$, $S_2 = [x_{S2},y_{S2}]$, $E_2 = [x_{E2},y_{E2}]$ a potřebujeme provést test, zda se dané přímky protínají či nikoliv, můžeme použít takzvaný \textit{Half-Plane} test, tedy test, který určuje zda bod leží v pravé či levé polorovině od přímky. Tento test zopakujeme celkem čtyřikrát a to na počáteční a koncový bod druhé úsečky, abysme zjistili zda se přímky protínají. Test je založen na výpočtu orientace dvou vektorů $\vec{u}$  a $\vec{v}$, kde vektor $\vec{u}$ je směrový vektor úsečky, tedy $\overrightarrow{S_1E_1}$ a vektor $\vec{v}$ je vektor $\overrightarrow{S_1S_2}$. Po aplikaci výpočtu orientace vektorů na každý z koncových bodů jsme schopni jednoduše určit zda se dané přímky protínají. Tento postup nám ovšem nedá souřadnice samotného průsečíku.
@@ -92,29 +92,36 @@ t = \frac{y_{S1}(x_{S2} - x_{E1}) + y_{E1}(x_{S1} - x_{S2}) + y_{S2}(x_{E1} - x_
 \end{align*}
 
 
-Z charakteru parametrického vyjádření přímek poté můžeme rozhodnout o vzájemné poloze úseček. Pokud parametry $s \in <0,1>, t \in <0,1>$ pak se úsečky protínají, v opačném případě se úsečky neprotínají. Je potřeba ošetřit případy kdy úsečky leží na jedné přímce.
+Z charakteru parametrického vyjádření přímek poté můžeme rozhodnout o vzájemné poloze úseček. Pokud parametry $s \in <0,1>, t \in <0,1>$ pak se úsečky protínají, v opačném případě se úsečky neprotínají. Je potřeba ošetřit případy kdy úsečky leží na jedné přímce. Podrobněji je tento způsob popsán v publikaci~\cite{bayer2008algoritmy}.
 
 
 \subsection{Bentley–Ottmannův algoritmus}
-Tento algoritmus je založen na technice zvané \textit{sweep line} neboli \textit{zametací přímka}. Tato technika je již zmíněna v kapitole \ref{chap:navrhovanialgoritmu}. Hlavní myšlenka pro zrychlení algoritmu oproti metodě hrubé síly je počítat průsečíky pouze sousedních linií, tedy linií které jsou právě protnuty zametací přímkou.
+Tento algoritmus je založen na technice zvané \textit{sweep line} neboli \textit{zametací přímka}. Tato technika je již zmíněna v kapitole \ref{chap:navrhovanialgoritmu}. Hlavní myšlenka pro zrychlení algoritmu oproti metodě hrubé síly je počítat průsečíky pouze sousedních linií, tedy linií které jsou právě protnuty zametací přímkou. Tímto způsobem se vyhneme časové složitosti $\mathcal{O}(N^2)$ a docílíme mnohem lepšího výsledku, tedy složitosti $\mathcal{O}(n\log{}n)$~\cite{bentley1979algorithms}.
 
-prioritní fronta - seřazené body podle jedné ze souřadnic
+Prvním a zásadním krokem algoritmů využívající techniku \textit{zametací přímky} je setřídit vstupní data podle jedné ze souřadnic. Setřídíme tedy jednotlivé souřadnice podle jedné z nich, často se používá souřadnice $x$, pak můžeme vizualizovat \textit{zametací přímku} jako svislou linii pohybující se zleva doprava. Toto setřízení lze provést jedním ze známých třídících algoritmů v čase $\mathcal{O}(n\log{}n)$.
+
+	Setříděné souřadnice jsou pak vkládány do fronty, odkud jsou postupně zpracovávány dokud algoritmus nenalezne veškeré průsečíky. Podrobnější popis algoritmu najdeme v publikacích~\cite{coupland, bentley1979algorithms}.
+	
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{./pictures/5/Bentley-Ottmann-plane-sweep-algorithm.png}
+  \caption{Znázornění postupu zametací přímky v Bentley-Ottmanově algoritmu. Převzato z~\citep{coupland}.}
+  \label{fig:5-bentley_ottman}
+\end{figure}
 
 
-
-
-
-, podle jedné ze souřadnic. Algoritmus zde nebuda více popisován jelikož je velmi dobře vysvětlen v těchto publikacích \cite{bentley1979algorithms} \cite{bayer2008algoritmy}.
 % https://www.cs.princeton.edu/~rs/AlgsDS07/17GeometricSearch.pdf
 % https://courses.csail.mit.edu/6.006/spring11/lectures/lec24.pdf
 % https://cw.fel.cvut.cz/old/_media/courses/ae4m39vg/lectures/09-intersect.pdf
 
-
-
-
-
 \section{Tvorba polygonů z množiny linií}
 Předpokládejme že máme množinu linií doplněnou o průsečíky, tedy každá dvojice úseček v této množině sdílí nejvýše jeden koncový bod. V předchozí sekci bylo řečeno že průsečíky linií lze doplnit pomocí \textit{Bentley–Ottmannova} algoritmu v čase $\mathcal{O}(n\log{}n)$. Nyní chceme tedy v této množině linií nalézt všechny polygony, tak aby jednotlivé polygony spolu sdílely maximálně hrany a zároveň aby žádný z polygonů nemohl obsahovat jiný polygon. Takové linie jsou v podstatě reprezentací grafu. K nalezení polygonů můžeme použít tedy grafových algoritmů. 
 	
-\subsection{Dijkstrův algoritmus}
+\subsection{Nalezení nejkratších cest mezi všemi vrcholy}
 
+\subsubsection{Dijkstrův algoritmus}
+\subsubsection{Floydův–Warshallův algoritmus}
+\subsubsection{Johnsonův algoritmus}
+
+
+\subsection{Nalezení minimálních cyklů}

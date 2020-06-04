@@ -126,10 +126,10 @@ geometrická kolekce obsahující polygony~\cite{PostGIS_software}.
 \begin{figure}
 \begin{minted}
 {postgresql}
-SELECT st_polygonize(lines_nodded.geom) AS geom
+SELECT st_polygonize(lines_nodded.geom)
 FROM (
         SELECT st_node(st_collect(st_linemerge(geom))) AS geom
-        FROM lines_small
+        FROM lines
     ) AS lines_nodded
 \end{minted}
 \caption{Příklad tvorby polygonů v PostGIS.}
