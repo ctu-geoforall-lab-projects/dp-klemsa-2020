@@ -100,7 +100,7 @@ Tento algoritmus je založen na technice zvané \textit{sweep line} neboli \text
 
 Prvním a zásadním krokem algoritmů využívající techniku \textit{zametací přímky} je setřídit vstupní data podle jedné ze souřadnic. Setřídíme tedy jednotlivé souřadnice podle jedné z nich, často se používá souřadnice $x$, pak můžeme vizualizovat \textit{zametací přímku} jako svislou linii pohybující se zleva doprava. Toto setřízení lze provést jedním ze známých třídících algoritmů v čase $\mathcal{O}(n\log{}n)$.
 
-	Setříděné souřadnice jsou pak vkládány do fronty, odkud jsou postupně zpracovávány dokud algoritmus nenalezne veškeré průsečíky. Podrobnější popis algoritmu najdeme v publikacích~\cite{coupland, bentley1979algorithms}.
+	Setříděné souřadnice jsou pak vloženy do fronty, odkud jsou postupně zpracovávány a hledány průsečíky jen těch linií, které jsou aktuálně protnuty zametací přímkou, dokud algoritmus nenalezne veškeré průsečíky. Podrobnější popis algoritmu najdeme v publikacích~\cite{coupland, bentley1979algorithms}.
 	
 \begin{figure}[h]
   \centering
@@ -115,13 +115,14 @@ Prvním a zásadním krokem algoritmů využívající techniku \textit{zametac�
 % https://cw.fel.cvut.cz/old/_media/courses/ae4m39vg/lectures/09-intersect.pdf
 
 \section{Tvorba polygonů z množiny linií}
-Předpokládejme že máme množinu linií doplněnou o průsečíky, tedy každá dvojice úseček v této množině sdílí nejvýše jeden koncový bod. V předchozí sekci bylo řečeno že průsečíky linií lze doplnit pomocí \textit{Bentley–Ottmannova} algoritmu v čase $\mathcal{O}(n\log{}n)$. Nyní chceme tedy v této množině linií nalézt všechny polygony, tak aby jednotlivé polygony spolu sdílely maximálně hrany a zároveň aby žádný z polygonů nemohl obsahovat jiný polygon. Takové linie jsou v podstatě reprezentací grafu. K nalezení polygonů můžeme použít tedy grafových algoritmů. 
+Předpokládejme že máme množinu linií doplněnou o průsečíky, tedy každá dvojice úseček v této množině sdílí nejvýše koncový bod. V předchozí sekci bylo řečeno že průsečíky linií lze doplnit pomocí \textit{Bentley–Ottmannova} algoritmu v čase $\mathcal{O}(n\log{}n)$. Nyní chceme tedy v této množině linií nalézt všechny polygony, tak aby jednotlivé polygony spolu sdílely maximálně hrany a zároveň aby žádný z polygonů neobsahoval jiný polygon. Takové linie jsou v podstatě reprezentací grafu. K nalezení polygonů můžeme použít tedy grafových algoritmů. 
+
+	Tak jak je polygonizace popsána v publikaci \cite{joaquim2003polygon}, je prvním krokem k nalezení polygonů, \textbf{nalezení nejkratších cest v grafu}. Pro nalezení nejkratších cest nám může posloužit jeden ze známých algoritmů. Nalezení nejkratších cest mezi všemi dvojicemi vrcholů v grafu jsme schopni realizovat v čase $\mathcal{O}(n^3)$, kde $n$ je počet vrcholů. Můžeme využít například 
 	
-\subsection{Nalezení nejkratších cest mezi všemi vrcholy}
-
-\subsubsection{Dijkstrův algoritmus}
-\subsubsection{Floydův–Warshallův algoritmus}
-\subsubsection{Johnsonův algoritmus}
-
-
-\subsection{Nalezení minimálních cyklů}
+\begin{itemize}
+\item Floydův–Warshallův algoritmus,
+\item Dijkstrův algoritmus,
+\item Johnsonův algoritmus.
+\end{itemize}
+	
+	Jako druhý krok lze považovat \textbf{nalezení nejkratších cyklů}, tedy vpodstatě vlastních polygonů. V publikaci \cite{joaquim2003polygon} je pro nalezení nejkratších cyklů použitý jednoduchý hladový algoritmus.
