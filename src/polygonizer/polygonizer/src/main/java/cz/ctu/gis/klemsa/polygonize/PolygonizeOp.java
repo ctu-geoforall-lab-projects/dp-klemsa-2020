@@ -1,36 +1,36 @@
 package cz.ctu.gis.klemsa.polygonize;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
-import org.locationtech.jts.geom.Puntal;
 import org.locationtech.jts.geom.util.GeometryExtracter;
-import org.locationtech.jts.operation.linemerge.LineMerger;
-import org.locationtech.jts.operation.overlay.OverlayOp;
-import org.locationtech.jts.operation.overlay.snap.SnapIfNeededOverlayOp;
 import org.locationtech.jts.operation.polygonize.Polygonizer;
 
 /**
+ * Polygonize a <code>Collection</code> of {@link Geometry}s or a single Geometry 
+ * (which may be a {@link GeoometryCollection}) together.
+ * Only the {@link LineString}s will be included to polygonization.
+ * {@link LineString}s may contain dangels. These will be added as part of the polygonization.
  * 
+ * @author Tomas Klemsa
+ *
  */
 public class PolygonizeOp 
 {
 	
 	private List lines = new ArrayList();
+	
 	private GeometryFactory geomFact = null;
 
 	/**
-	 * Constructs a unary union operation for a {@link Collection} 
+	 * Constructs a polygons from a {@link Collection} 
 	 * of {@link Geometry}s.
 	 * 
 	 * @param geoms a collection of geometries
@@ -43,7 +43,7 @@ public class PolygonizeOp
 	}
 	
 	/**
-	 * Computes the polygons of a {@link Collection} 
+	 * Constructs a polygons from a {@link Collection} 
 	 * of {@link Geometry}s.
 	 * 
 	 * @param geoms a collection of geometries
@@ -58,7 +58,7 @@ public class PolygonizeOp
 	
 	
 	/**
-	 * Computes the geometric union of a {@link Collection} 
+	 * Constructs a polygons from a {@link Collection} 
 	 * of {@link Geometry}s.
 	 * 
 	 * If no input geometries were provided but a {@link GeometryFactory} was provided, 
@@ -76,21 +76,21 @@ public class PolygonizeOp
 	}
 	
 	/**
-	 * Constructs a unary union operation for a {@link Geometry}
+	 * Constructs a polygons from a {@link Geometry}
 	 * (which may be a {@link GeometryCollection}).
 	 * 
 	 * @param geom a geometry to union
 	 * @return the union of the elements of the geometry
 	 * or an empty GEOMETRYCOLLECTION
 	 */
-	public static Collection union(Geometry geom)
+	public static Collection polygonize(Geometry geom)
 	{
 		PolygonizeOp op = new PolygonizeOp(geom);
 		return op.polygonize();
 	}
 	
 	/**
-	 * Constructs a unary union operation for a {@link Collection} 
+	 * Constructs a polygons from a {@link Collection} 
 	 * of {@link Geometry}s, using the {@link GeometryFactory}
 	 * of the input geometries.
 	 * 
@@ -102,7 +102,7 @@ public class PolygonizeOp
 	}
 	
 	/**
-	 * Constructs a unary union operation for a {@link Geometry}
+	 * Constructs a polygons from a {@link Geometry}
 	 * (which may be a {@link GeometryCollection}).
 	 * @param geom
 	 */
@@ -124,7 +124,7 @@ public class PolygonizeOp
 		if (geomFact == null)
 			geomFact = geom.getFactory();
 
-		// Extract only lines.
+		// Extract only lineStrings.
 		GeometryExtracter.extract(geom, LineString.class, lines);
 	}
 
@@ -139,6 +139,7 @@ public class PolygonizeOp
 		
 		// Calculate nodes.
 		Geometry unionLines = lineGeom.union();
+		System.out.println(unionLines);
 		
 		// Calculate polygons.
 		polygonizer.add(unionLines);
