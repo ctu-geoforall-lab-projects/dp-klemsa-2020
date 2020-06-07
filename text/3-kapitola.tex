@@ -4,7 +4,9 @@ Následující odstavce byly čerpány z publikací
 \cite{kolar2003geograficke,tucek1997geograficke,vesely2007thesis}. K
 uchování prostorových dat v GIS jsou používané dva základní typy, a to
 vektorová a rastrová data. Rastrová data se hojně využívají pro popis
+% ML: nebo pro obrazova data jako jsou letecke anebo druzicove snimky
 spojitého jevu, například nadmořské výšky, nebo pro fotoplány. Každý
+% ML: obraz -> soubor ?
 pixel obsahuje jednu číselnou hodnotu. Jeden rastrový obraz může
 obsahovat i více vrstev, pak může být fotoplán vyjádřen hodnotami
 barev RGB, zatímco nadmořská výška bude pravděpodobně vyjádřena jednou
@@ -69,15 +71,18 @@ uchováním dat ve špagetovém modelu. Jelikož jsou body jeden na druhém
 nezávislé, nejsou zde uloženy žádné zvláštní topologické
 vztahy. Jediné, co je o bodech uchováváno, je jejich identifikátor,
 přes který lze bod propojit se souřadnicemi.
-	
+
+% ML: v tomto kontextu se mluvi casto o hranach (uz to ale nemen)
 \subsubsection{Topologie linií}
 Pro linie platí pravidlo, že každé dvě linie mohou sdílet pouze uzly,
 tedy koncové body. Každá část linie je uložena s odkazem na uzly
 linie. Struktura dále ukládá informace o pravém a levém polygonu
 vzhledem ke směru linie, pokud takovýto polygon existuje.
 
+% ML: v tomto kontextu se nemluvi vetsinou o "polygonech", ale o
+% "plochach" (uz to ale nemen)
 \subsubsection{Topologie polygonů}
-Pro každý polygon je definováno odkazy na linie, které ho
+Pro každý polygon je definován odkazem na linie, které ho
 ohraničují. Výhoda v tomto modelu je, že společné linie polygonů jsou
 uloženy pouze jednou.
 	
