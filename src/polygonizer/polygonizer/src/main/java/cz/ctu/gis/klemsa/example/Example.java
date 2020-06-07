@@ -1,6 +1,7 @@
 package cz.ctu.gis.klemsa.example;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,6 +14,8 @@ import org.locationtech.jts.operation.overlay.OverlayOp;
 import org.locationtech.jts.operation.polygonize.Polygonizer;
 import org.opengis.feature.simple.SimpleFeature;
 
+import cz.ctu.gis.klemsa.polygonize.PolygonizeOp;
+
 public class Example {
 	
 	private Example() {
@@ -20,7 +23,8 @@ public class Example {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		
+		System.out.println(LocalDateTime.now());
+
 		// Load input shapefile.
 		LinesLoader linesLoader = new LinesLoader("geometry/lines.shp");
 		SimpleFeatureCollection simpleFeatureCollection = linesLoader.getSimpleFeatureCollection();
@@ -31,7 +35,8 @@ public class Example {
 			throw new IOException("Input shapefile doesnt contain geometry type MultiLineString.");
 		}
 		
-		
+		System.out.println(LocalDateTime.now());
+
 		// Iterate over collection.
 		Collection<Geometry> geometryCollection = new ArrayList<Geometry>();
 		
@@ -50,18 +55,23 @@ public class Example {
 		lineMerger.add(geometryCollection);
 		Collection<Geometry> mergedLineStrings = lineMerger.getMergedLineStrings();
 		
+		System.out.println(LocalDateTime.now());
+
+		
 		// Calculate nodes.
 		GeometryCombiner geometryCombiner = new GeometryCombiner(mergedLineStrings);
-		Geometry graph = geometryCombiner.combine();
-		Geometry graph1 = graph.union();
+		Geometry noDangelsLines = geometryCombiner.combine().union();
+		
 		
 		Polygonizer polygonizer = new Polygonizer();
-		polygonizer.add(graph1);
+		polygonizer.add(noDangelsLines);
 		
 		
+		//System.out.println(polygonizer.getPolygons());
+		System.out.println(LocalDateTime.now());
 		
-		
-		System.out.println(polygonizer.getPolygons());
+		//PolygonizeOp polygonizeOp = new PolygonizeOp(geometryCollection);
+		System.out.println(PolygonizeOp.polygonize(geometryCollection));
 		
 		// Calculate lines intersections.
 		// OverlayOp overlay = new OverlayOp(UnionLines, null);
